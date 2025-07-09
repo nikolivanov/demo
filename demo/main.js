@@ -15,21 +15,21 @@
 import {
   HandLandmarker,
   FilesetResolver
-} from "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.0";
+} from "../node_modules/@mediapipe/tasks-vision/vision_bundle.mjs";
 
 const demosSection = document.getElementById("demos");
 
 let handLandmarker = undefined;
 let runningMode = "IMAGE";
-let enableWebcamButton: HTMLButtonElement;
-let webcamRunning: Boolean = false;
+let enableWebcamButton;
+let webcamRunning = false;
 
 // Before we can use HandLandmarker class we must wait for it to finish
 // loading. Machine Learning models can be large and take a moment to
 // get everything needed to run.
 const createHandLandmarker = async () => {
   const vision = await FilesetResolver.forVisionTasks(
-    "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.0/wasm"
+    "../node_modules/@mediapipe/tasks-vision/wasm"
   );
   handLandmarker = await HandLandmarker.createFromOptions(vision, {
     baseOptions: {
@@ -112,10 +112,10 @@ async function handleClick(event) {
 // Demo 2: Continuously grab image from webcam stream and detect it.
 ********************************************************************/
 
-const video = document.getElementById("webcam") as HTMLVideoElement;
+const video = document.getElementById("webcam");
 const canvasElement = document.getElementById(
   "output_canvas"
-) as HTMLCanvasElement;
+);
 const canvasCtx = canvasElement.getContext("2d");
 
 // Check if webcam access is supported.
