@@ -15,7 +15,7 @@
 import {
   HandLandmarker,
   FilesetResolver
-} from "../node_modules/@mediapipe/tasks-vision/vision_bundle.mjs";
+} from "@mediapipe/tasks-vision";
 
 let handLandmarker = undefined;
 let runningMode = "IMAGE";
@@ -26,7 +26,7 @@ let webcamRunning = false;
 // get everything needed to run.
 const createHandLandmarker = async () => {
   const vision = await FilesetResolver.forVisionTasks(
-    "../node_modules/@mediapipe/tasks-vision/wasm"
+    "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.22-rc.20250304/wasm"
   );
   handLandmarker = await HandLandmarker.createFromOptions(vision, {
     baseOptions: {
