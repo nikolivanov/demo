@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@mediapipe/hands": "^0.4.1675469240",
+    "three": "^0.178.0"
+  }
+}
