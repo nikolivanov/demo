@@ -12,6 +12,14 @@
     #liveView { position: relative; width: 100%; height: 100%; }
     #webcam, #output_canvas { position: absolute; width: 100%; height: 100%; object-fit: cover; }
   </style>
+  <script type="importmap">
+    {
+      "imports": {
+        "@mediapipe/tasks-vision": "/node_modules/@mediapipe/tasks-vision/vision_bundle.mjs",
+        "@mediapipe/drawing_utils": "/node_modules/@mediapipe/drawing_utils/drawing_utils.js"
+      }
+    }
+    </script>
 </head>
 <body>  <div id="liveView">
     <video id="webcam" autoplay playsinline></video>
