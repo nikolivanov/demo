@@ -1,8 +1,6 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
-import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
-import { prepareSkeleton } from './pose.js';
 import { HAND_CONNECTIONS } from './constants.js';
 
 export let handSkeleton;
@@ -54,7 +52,7 @@ export function initScene() {
         const skinned = handModel.getObjectByProperty('isSkinnedMesh', true);
         if (skinned) {
           handSkeleton = skinned.skeleton;
-          prepareSkeleton(handSkeleton);
+          // prepareSkeleton(handSkeleton);
         }
 
         resolve();
@@ -88,20 +86,12 @@ export function initScene() {
   ringMesh.scale.setScalar(0.003); // scale down the ring ~100 times
   scene.add(ringMesh);
 
-  const dracoLoader = new DRACOLoader();
-  dracoLoader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/');
-  const ringLoader = new GLTFLoader();
-  ringLoader.setDRACOLoader(dracoLoader);
-  const ringPromise = new Promise((resolve) => {
-    ringLoader.load('./model/Ring/ring.glb', (gltf) => {
-      // gltf.scene.rotation.x += Math.PI;
-      // gltf.scene.rotation.y += Math.PI;
-      gltf.scene.rotation.z += -Math.PI / 2;
-      ringMesh.add(gltf.scene);
-      resolve();
-    });
-  });
-  loadPromise = Promise.all([loadPromise, ringPromise]);
+  // create a simple torus geometry as a placeholder for the ring
+  const torus = new THREE.TorusGeometry(0.1, 0.03, 16, 100);
+  const torusMat = new THREE.MeshStandardMaterial({ color: 0xffcc00 });
+  const torusMesh = new THREE.Mesh(torus, torusMat);
+  torusMesh.rotation.z = -Math.PI / 2;
+  ringMesh.add(torusMesh);
 
 
   renderer = new THREE.WebGLRenderer({ antialias: true });
